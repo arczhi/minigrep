@@ -1,5 +1,5 @@
 # minigrep
-a gadget written in learning rust
+a gadget written in learning rust language
 
 
 > Usage: minigrep [QUERY] [FILEPATH]
