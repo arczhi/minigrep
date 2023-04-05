@@ -14,14 +14,16 @@ use std::process;
 
 fn main() {
     //获取用户输入的命令行参数
-    let Args: Vec<String> = env::args().collect();
+    // let Args: Vec<String> = env::args().collect();
 
     // //打印输入
     // dbg!(Args);
 
     // | err | { do something } //匹配错误
-    let config = Config::build(&Args).unwrap_or_else(|err| {
-        println!("parse args error: {err}\nUsage: minigrep [QUERY] [FILEPATH]");
+    let config = Config::build(env::args()).unwrap_or_else(|err| {
+        //重定向错误信息到错误输出stderr
+        eprintln!("parse args error: {err}\nUsage: minigrep [QUERY] [FILEPATH]");
+        //终止程序
         process::exit(1);
     });
 
@@ -34,7 +36,7 @@ fn main() {
     //     }
     // }
     if let Err(e) = run(config) {
-        println!("run error: {e}");
+        eprintln!("run error: {e}");
         process::exit(1);
     }
 }

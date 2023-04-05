@@ -19,14 +19,19 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(Args: &[String]) -> Result<Config, &str> {
-        if Args.len() < 3 {
-            return Err("no enough arguments !");
-        }
+    pub fn build(mut Args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
+        //第一个参数是可执行文件的名称，这里忽略
+        Args.next();
         //要检索的字符串
-        let query = Args[1].clone();
+        let query = match Args.next() {
+            Some(arg) => arg,
+            None => return Err("LACK QUERY ARGUMENT !"),
+        };
         //目标文件的路径
-        let file_path = Args[2].clone();
+        let file_path = match Args.next() {
+            Some(arg) => arg,
+            None => return Err("LACK FILEPATH ARGUMENT!"),
+        };
 
         Ok(Config { query, file_path })
     }
