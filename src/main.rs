@@ -7,7 +7,7 @@ use std::process;
 
 /// `迷你grep工具`
 /// a mini grep
-///
+/// Usage: minigrep [QUERY] [FILEPATH]
 ///
 
 fn main() {
